@@ -1,3 +1,5 @@
+package com.mango.trip.security.oauth
+
 import com.mango.trip.exception.auth.OAuth2RequestException
 import com.mango.trip.util.CookieUtils
 import jakarta.servlet.http.HttpServletRequest

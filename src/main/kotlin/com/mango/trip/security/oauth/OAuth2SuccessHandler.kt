@@ -1,6 +1,6 @@
 package com.mango.trip.security.oauth
 
-import CookieAuthorizationRequestRepository.Companion.REDIRECT_URI_PARAM_COOKIE_NAME
+import com.mango.trip.security.oauth.CookieAuthorizationRequestRepository.Companion.REDIRECT_URI_PARAM_COOKIE_NAME
 import com.mango.trip.exception.auth.OAuth2RequestException
 import com.mango.trip.security.jwt.JwtTokenProvider
 import com.mango.trip.util.CookieUtils
