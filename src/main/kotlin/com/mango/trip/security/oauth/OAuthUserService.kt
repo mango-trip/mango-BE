@@ -24,6 +24,7 @@ open class OAuthUserService(
         val usernameAttributeName =
             userRequest.clientRegistration.providerDetails.userInfoEndpoint.userNameAttributeName
         val attributes = OAuthAttributes(registrationId, oAuthUserAttributes)
+        println(attributes)
         val user = saveOrUpdate(attributes)
 
         return OAuthCustomUser(attributes, usernameAttributeName, user)

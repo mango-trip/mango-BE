@@ -16,6 +16,6 @@ class OAuth2FailureHandler(
         super.onAuthenticationFailure(request, response, exception)
 
         cookieAuthorizationRequestRepository.removeAuthorizationRequestCookies(request, response)
-        logger.error("Google Login Failure : " + exception.message)
+        logger.error("OAuth Login Failure : " + exception.message)
     }
 }

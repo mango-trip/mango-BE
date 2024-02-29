@@ -27,7 +27,7 @@ class Member(
         authAttributes: OAuthAttributes
     ): this(
         loginId = authAttributes.id!!,
-        email = authAttributes.email!!,
+        email = authAttributes.email,
         oauthType = authAttributes.oAuthType!!,
         nickname = authAttributes.name!!,
     )

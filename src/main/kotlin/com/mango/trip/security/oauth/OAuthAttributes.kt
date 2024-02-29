@@ -3,7 +3,7 @@ package com.mango.trip.security.oauth
 import com.mango.trip.enumuration.OAuthType
 import java.util.*
 
-class OAuthAttributes(
+data class OAuthAttributes(
     val attributes: Map<String, Any>,
     var nameAttributesKey: String? = null,
     var id: String? = null,
