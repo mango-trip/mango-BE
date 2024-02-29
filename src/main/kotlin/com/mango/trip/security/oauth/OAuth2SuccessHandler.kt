@@ -29,7 +29,7 @@ class OAuth2SuccessHandler(
         request: HttpServletRequest,
         response: HttpServletResponse,
     ) {
-        val redirectUri = CookieUtils.getCookie(request, REDIRECT_URI_PARAM_COOKIE_NAME)?.toString()
+        val redirectUri = CookieUtils.getCookie(request, REDIRECT_URI_PARAM_COOKIE_NAME)?.value
         if (redirectUri.isNullOrBlank()) {
             throw OAuth2RequestException("Not Found Redirect URI")
         }
