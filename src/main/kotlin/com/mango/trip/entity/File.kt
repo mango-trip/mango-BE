@@ -14,8 +14,8 @@ class File(
     @Column(name = "file_name")
     val fileName: String,
 
-    @ManyToOne
+    @ManyToOne(optional = true)
     @JoinColumn(name = "plan_id")
-    val plan: Plan,
+    val plan: Plan?,
 ) {
 }

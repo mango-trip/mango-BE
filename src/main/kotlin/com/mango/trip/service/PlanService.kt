@@ -2,6 +2,7 @@ package com.mango.trip.service
 
 import com.mango.trip.entity.Plan
 import com.mango.trip.exception.DataNotFoundException
+import com.mango.trip.model.CreatePlanRequest
 import com.mango.trip.model.GetPlanResponse
 import com.mango.trip.repository.PlanRepository
 import org.springframework.data.repository.findByIdOrNull
@@ -16,6 +17,11 @@ class PlanService(
     fun getPlan(planId: Long): GetPlanResponse {
         val plan = get(planId)
         return GetPlanResponse(plan)
+    }
+
+    @Transactional
+    fun createPlan(request: CreatePlanRequest) {
+        TODO("일정 생성 로직 구현 필요")
     }
 
     private fun get(planId: Long): Plan {
