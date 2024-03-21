@@ -1,5 +1,6 @@
 package com.mango.trip.entity
 
+import com.mango.trip.model.CreatePlanRequest
 import jakarta.persistence.*
 import java.time.LocalDateTime
 
@@ -38,4 +39,15 @@ class Plan(
 
     @Column(name = "updated_at")
     val updatedAt: LocalDateTime = LocalDateTime.now(),
-)
+) {
+    constructor(
+        request: CreatePlanRequest,
+    ): this(
+        title = request.title,
+        tripStartDate = request.tripStartDate,
+        tripEndDate = request.tripEndDate,
+        totalAmount = request.totalAmount,
+        content = request.content,
+        isActive = true,
+    )
+}
