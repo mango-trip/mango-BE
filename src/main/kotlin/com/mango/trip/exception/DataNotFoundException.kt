@@ -1,9 +1,13 @@
 package com.mango.trip.exception
 
-import org.springframework.http.HttpStatus
+open class DataNotFoundException(
+    error: ErrorCode,
+    description: String,
+    throwable: Throwable = Throwable()
+): DefaultException(error, description, throwable) {
 
-open class DataNotFoundException : RuntimeException {
-    open val status = HttpStatus.NOT_FOUND
+    constructor(error: ErrorCode) : this(error, error.description)
 
-    constructor(message: String = "Not Found") : super(message)
+    constructor(description: String) : this(ErrorCode.NOT_FOUND, description)
+    constructor() : this(ErrorCode.NOT_FOUND, ErrorCode.NOT_FOUND.description)
 }
