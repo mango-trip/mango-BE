@@ -11,6 +11,4 @@ enum class ErrorCode(val description: String) {
 
     // Forbidden
 
-    // 500!!
-
 }

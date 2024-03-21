@@ -2,6 +2,7 @@ package com.mango.trip.security.oauth
 
 import com.mango.trip.entity.Member
 import com.mango.trip.repository.MemberRepository
+import com.mango.trip.service.dao.MemberDao
 import jakarta.transaction.Transactional
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest
@@ -10,7 +11,7 @@ import org.springframework.security.oauth2.core.user.OAuth2User
 
 
 open class OAuthUserService(
-    private val memberRepository: MemberRepository,
+    private val memberDao: MemberDao,
 ) : OAuth2UserService<OAuth2UserRequest, OAuth2User> {
     override fun loadUser(userRequest: OAuth2UserRequest): OAuth2User {
         val service = DefaultOAuth2UserService()
@@ -33,8 +34,8 @@ open class OAuthUserService(
     @Transactional
     open fun saveOrUpdate(authAttributes: OAuthAttributes): Member {
 
-        return memberRepository.findByLoginIdAndOauthType(
+        return memberDao.getByLoginIdAndOauthTypeOrNull(
             authAttributes.id!!, authAttributes.oAuthType!!
-        ) ?: memberRepository.save(Member(authAttributes))
+        ) ?: memberDao.create(authAttributes)
     }
 }

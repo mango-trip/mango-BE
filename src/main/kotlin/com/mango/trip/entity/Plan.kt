@@ -10,6 +10,10 @@ class Plan(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
 
+    @ManyToOne
+    @JoinColumn(name = "member_id")
+    val member: Member,
+
     @Column(name = "title")
     val title: String,
 
@@ -42,7 +46,9 @@ class Plan(
 ) {
     constructor(
         request: CreatePlanRequest,
+        member: Member,
     ): this(
+        member = member,
         title = request.title,
         tripStartDate = request.tripStartDate,
         tripEndDate = request.tripEndDate,

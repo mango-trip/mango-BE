@@ -6,6 +6,7 @@ import com.mango.trip.security.jwt.JwtTokenProvider
 import com.mango.trip.security.oauth.OAuth2FailureHandler
 import com.mango.trip.security.oauth.OAuth2SuccessHandler
 import com.mango.trip.security.oauth.OAuthUserService
+import com.mango.trip.service.dao.MemberDao
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
@@ -16,7 +17,7 @@ import org.springframework.security.web.SecurityFilterChain
 @EnableWebSecurity
 class SecurityConfig(
     private val jwtTokenProvider: JwtTokenProvider,
-    private val memberRepository: MemberRepository,
+    private val memberDao: MemberDao,
     private val cookieAuthorizationRequestRepository: CookieAuthorizationRequestRepository,
 ) {
 
@@ -32,7 +33,7 @@ class SecurityConfig(
 
     @Bean
     fun oAuthUserService(): OAuthUserService {
-        return OAuthUserService(memberRepository)
+        return OAuthUserService(memberDao)
     }
 
     @Bean
