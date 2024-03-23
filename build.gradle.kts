@@ -21,7 +21,7 @@ repositories {
 
 configurations {
     all {
-        exclude(group="org.springframework.boot", module="spring-boot-starter-logging")
+        exclude(group = "org.springframework.boot", module = "spring-boot-starter-logging")
     }
     compileOnly {
         extendsFrom(configurations.annotationProcessor.get())
@@ -42,13 +42,15 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.security:spring-security-test")
 
-    implementation ("io.jsonwebtoken:jjwt-api:0.11.2")
-    runtimeOnly ("io.jsonwebtoken:jjwt-impl:0.11.2")
-    runtimeOnly ("io.jsonwebtoken:jjwt-jackson:0.11.2")
+    implementation("io.jsonwebtoken:jjwt-api:0.11.2")
+    runtimeOnly("io.jsonwebtoken:jjwt-impl:0.11.2")
+    runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.11.2")
 
     implementation("org.springframework.boot:spring-boot-starter-log4j2")
     implementation("io.github.microutils:kotlin-logging:3.0.5")
     runtimeOnly("io.github.microutils:kotlin-logging-jvm:3.0.5")
+
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.4.0")
 }
 
 tasks.withType<KotlinCompile> {

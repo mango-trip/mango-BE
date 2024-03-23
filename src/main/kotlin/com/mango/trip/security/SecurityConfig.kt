@@ -33,6 +33,7 @@ class SecurityConfig(
 
     val authPassList = listOf(
         AntPathRequestMatcher("/docs/**", HttpMethod.GET.name()),
+        AntPathRequestMatcher("/v3/api-docs/**", HttpMethod.GET.name()),
         AntPathRequestMatcher("/oauth2/**", HttpMethod.GET.name()),
         AntPathRequestMatcher("/login/**", HttpMethod.GET.name()),
         // Front Public API
