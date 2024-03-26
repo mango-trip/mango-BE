@@ -32,12 +32,14 @@ class SecurityConfig(
 ) {
 
     val authPassList = listOf(
+        AntPathRequestMatcher("/h2-console/**"),
         AntPathRequestMatcher("/docs/**", HttpMethod.GET.name()),
         AntPathRequestMatcher("/v3/api-docs/**", HttpMethod.GET.name()),
         AntPathRequestMatcher("/oauth2/**", HttpMethod.GET.name()),
         AntPathRequestMatcher("/login/**", HttpMethod.GET.name()),
+
         // Front Public API
-        AntPathRequestMatcher("/front/api/v1/country/**", HttpMethod.GET.name()),
+        AntPathRequestMatcher("/front/api/v1/city/**", HttpMethod.GET.name()),
     )
 
     @Bean
