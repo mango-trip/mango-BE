@@ -3,9 +3,13 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     id("org.springframework.boot") version "3.2.3"
     id("io.spring.dependency-management") version "1.1.4"
-    kotlin("jvm") version "1.9.22"
-    kotlin("plugin.spring") version "1.9.22"
-    kotlin("plugin.jpa") version "1.9.22"
+
+    val kotlinVersion = "1.9.22"
+
+    kotlin("jvm") version kotlinVersion
+    kotlin("plugin.spring") version kotlinVersion
+    kotlin("plugin.jpa") version kotlinVersion
+    kotlin("kapt") version kotlinVersion
 }
 
 group = "com.mango"
@@ -51,6 +55,9 @@ dependencies {
     runtimeOnly("io.github.microutils:kotlin-logging-jvm:3.0.5")
 
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.4.0")
+
+    implementation("com.infobip:infobip-spring-data-jpa-querydsl-boot-starter:8.1.2")
+    kapt("com.querydsl:querydsl-apt:5.0.0:jakarta")
 }
 
 tasks.withType<KotlinCompile> {
