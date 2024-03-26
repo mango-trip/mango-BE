@@ -1,25 +1,28 @@
 package com.mango.trip.service
 
-import com.mango.trip.entity.Plan
-import com.mango.trip.exception.DataNotFoundException
+import com.mango.trip.model.CreatePlanRequest
 import com.mango.trip.model.GetPlanResponse
-import com.mango.trip.repository.PlanRepository
-import org.springframework.data.repository.findByIdOrNull
+import com.mango.trip.security.dto.MemberInfoDto
+import com.mango.trip.service.dao.MemberDao
+import com.mango.trip.service.dao.PlanDao
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 @Service
 class PlanService(
-    private val planRepository: PlanRepository,
+    private val planDao: PlanDao,
+    private val memberDao: MemberDao,
 ) {
     @Transactional(readOnly = true)
     fun getPlan(planId: Long): GetPlanResponse {
-        val plan = get(planId)
+        val plan = planDao.getById(planId)
         return GetPlanResponse(plan)
     }
 
-    private fun get(planId: Long): Plan {
-        return planRepository.findByIdAndIsActive(true)
-            ?: throw DataNotFoundException("일정을 찾을 수 없습니다.")
+    @Transactional
+    fun createPlan(request: CreatePlanRequest, memberInfoDto: MemberInfoDto) {
+        // TODO 도시 검증
+        val member = memberDao.getById(memberInfoDto.id)
+        planDao.create(request, member)
     }
 }

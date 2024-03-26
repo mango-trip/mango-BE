@@ -32,4 +32,13 @@ class JwtTokenProvider {
             .signWith(key, SignatureAlgorithm.HS256)
             .compact()
     }
+
+    fun decodeToken(token: String): String {
+        return Jwts.parserBuilder()
+            .setSigningKey(key)
+            .build()
+            .parseClaimsJws(token)
+            .body
+            .subject
+    }
 }

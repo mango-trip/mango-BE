@@ -1,16 +1,18 @@
 package com.mango.trip.controller
 
+import com.mango.trip.model.CreatePlanRequest
 import com.mango.trip.model.GetPlanResponse
+import com.mango.trip.security.dto.MemberInfoDto
 import com.mango.trip.service.PlanService
+import jakarta.validation.Valid
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.security.core.annotation.AuthenticationPrincipal
+import org.springframework.web.bind.annotation.*
 
 
 @RestController
-@RequestMapping("/api/front/v1/plan")
+@RequestMapping("/front/api/v1/plan")
 class PlanController(
     private val planService: PlanService,
 ) {
@@ -20,5 +22,14 @@ class PlanController(
     ): ResponseEntity<GetPlanResponse> {
         val response = planService.getPlan(planId)
         return ResponseEntity.ok(response)
+    }
+
+    @PostMapping("")
+    fun createPlan(
+        @Valid @RequestBody request: CreatePlanRequest,
+        @AuthenticationPrincipal memberInfoDto: MemberInfoDto,
+    ): ResponseEntity<Any> {
+        planService.createPlan(request, memberInfoDto)
+        return ResponseEntity(HttpStatus.OK)
     }
 }

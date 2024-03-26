@@ -3,9 +3,13 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     id("org.springframework.boot") version "3.2.3"
     id("io.spring.dependency-management") version "1.1.4"
-    kotlin("jvm") version "1.9.22"
-    kotlin("plugin.spring") version "1.9.22"
-    kotlin("plugin.jpa") version "1.9.22"
+
+    val kotlinVersion = "1.9.22"
+
+    kotlin("jvm") version kotlinVersion
+    kotlin("plugin.spring") version kotlinVersion
+    kotlin("plugin.jpa") version kotlinVersion
+    kotlin("kapt") version kotlinVersion
 }
 
 group = "com.mango"
@@ -19,11 +23,21 @@ repositories {
     mavenCentral()
 }
 
+configurations {
+    all {
+        exclude(group = "org.springframework.boot", module = "spring-boot-starter-logging")
+    }
+    compileOnly {
+        extendsFrom(configurations.annotationProcessor.get())
+    }
+}
+
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
     implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-validation")
 
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
@@ -32,9 +46,18 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.security:spring-security-test")
 
-    implementation ("io.jsonwebtoken:jjwt-api:0.11.2")
-    runtimeOnly ("io.jsonwebtoken:jjwt-impl:0.11.2")
-    runtimeOnly ("io.jsonwebtoken:jjwt-jackson:0.11.2")
+    implementation("io.jsonwebtoken:jjwt-api:0.11.2")
+    runtimeOnly("io.jsonwebtoken:jjwt-impl:0.11.2")
+    runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.11.2")
+
+    implementation("org.springframework.boot:spring-boot-starter-log4j2")
+    implementation("io.github.microutils:kotlin-logging:3.0.5")
+    runtimeOnly("io.github.microutils:kotlin-logging-jvm:3.0.5")
+
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.4.0")
+
+    implementation("com.infobip:infobip-spring-data-jpa-querydsl-boot-starter:8.1.2")
+    kapt("com.querydsl:querydsl-apt:5.0.0:jakarta")
 }
 
 tasks.withType<KotlinCompile> {
